@@ -2,7 +2,7 @@ import { IExercise } from '../types';
 
 export abstract class SumExercise implements IExercise {
 
-  protected constructor(private firstNumber: number, private secondNumber: number) {}
+  protected constructor(protected firstNumber: number, protected secondNumber: number) {}
 
   getQuestion(): string {
     return `${this.firstNumber} + ${this.secondNumber} = ?`;

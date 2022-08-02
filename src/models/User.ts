@@ -33,7 +33,7 @@ export class Users {
 
   private createNewUser(userId: number) {
     return new User(
-      new ExercisesWithScore(new Exercises(easyExercises), 5),
+      new ExercisesWithScore(new Exercises(easyExercises)),
       new StorageBalance(userId),
     );
   }

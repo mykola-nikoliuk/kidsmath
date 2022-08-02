@@ -18,6 +18,10 @@ export class Exercises implements IExercise {
     this.exercise = this.createExercise();
   }
 
+  getExercise(): IExercise {
+    return this.exercise;
+  }
+
   // setExerciseClasses(newExerciseClasses: Newable<IExercise>[]) {
   //   this.exerciseClasses = newExerciseClasses;
   //   this.next();

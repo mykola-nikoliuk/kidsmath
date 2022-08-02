@@ -1,11 +1,16 @@
 import { Exercises } from './Exercises';
 import { Currency } from '../../services/Currency';
 import { messages } from '../../messages';
+import { IExercise } from '../types';
+import { EasySum } from './easy/EasySum';
+import { EasySub } from './easy/EasySub';
+import { EasySumUsingWords } from './easy/EasySumUsingWords';
 
 export class ExercisesWithScore {
   private mistakes = 0;
 
-  constructor(private exercises: Exercises, private exerciseScore: number) {}
+  constructor(private exercises: Exercises) {
+  }
 
   getView(): string {
     return `${messages.prize} ${Currency.toPrice(this.getScore())}\n\n${this.exercises.getQuestion()}`;
@@ -27,12 +32,28 @@ export class ExercisesWithScore {
   }
 
   private getScore(): number {
+    const exerciseScore = this.getExerciseScore(this.exercises.getExercise());
+
     switch (this.mistakes) {
       case 0:
       case 1:
-        return this.exerciseScore;
+        return exerciseScore;
       case 2:
-        return Math.floor(this.exerciseScore / 2);
+        return Math.floor(exerciseScore / 2);
+
+      default:
+        return 0;
+    }
+  }
+
+  private getExerciseScore(exercise: IExercise) {
+    switch (true) {
+      case exercise instanceof EasySum:
+      case exercise instanceof EasySub:
+        return 5;
+
+      case exercise instanceof EasySumUsingWords:
+        return 7;
 
       default:
         return 0;
