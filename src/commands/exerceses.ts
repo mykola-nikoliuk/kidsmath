@@ -2,7 +2,6 @@ import { createCommand } from "./createCommandHandler";
 import { Command, CommandAccessLevel } from '../services/TelegramBotService';
 import { Users } from '../models/User';
 import { messages } from '../messages';
-import { StorageBalance } from '../models/StorageBalance';
 
 export function createExerciseCommands(state: Users): Command[] {
   return [
@@ -23,6 +22,17 @@ export function createExerciseCommands(state: Users): Command[] {
         const response = `${result}\n\n${user.getDashboard()}`;
 
         await bot.sendMessage(chatId, response);
+      },
+      CommandAccessLevel.ANY,
+    ),
+    createCommand(
+      /^credit\s(\d+)$/g,
+      async ({ regexResult, chatId, bot }) => {
+        const user = state.getUserState(chatId);
+        const credit = parseInt(regexResult[1]);
+        const resultMessage = user.balance.credit(credit) ? messages.creditSuccessful : messages.lowBalance;
+
+        await bot.sendMessage(chatId, `${resultMessage}\n${messages.balance} ${user.balance.getBalance()}`);
       },
       CommandAccessLevel.ANY,
     ),

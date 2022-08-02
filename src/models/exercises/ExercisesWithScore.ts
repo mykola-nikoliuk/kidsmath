@@ -1,5 +1,6 @@
 import { Exercises } from './Exercises';
 import { Currency } from '../../services/Currency';
+import { messages } from '../../messages';
 
 export class ExercisesWithScore {
   private mistakes = 0;
@@ -7,7 +8,7 @@ export class ExercisesWithScore {
   constructor(private exercises: Exercises, private exerciseScore: number) {}
 
   getView(): string {
-    return `🏆 приз: ${Currency.toPrice(this.getScore())}\n\n${this.exercises.getQuestion()}`;
+    return `${messages.prize} ${Currency.toPrice(this.getScore())}\n\n${this.exercises.getQuestion()}`;
   }
 
   tryAnswer(answer: number): number {
@@ -22,6 +23,7 @@ export class ExercisesWithScore {
 
   next() {
     this.exercises.next();
+    this.mistakes = 0;
   }
 
   private getScore(): number {
