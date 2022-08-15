@@ -5,6 +5,7 @@ import { IExercise } from '../types';
 import { EasySum } from './easy/EasySum';
 import { EasySub } from './easy/EasySub';
 import { EasySumUsingWords } from './easy/EasySumUsingWords';
+import { EasyMultiplication } from './easy/EasyMultiplication';
 
 export class ExercisesWithScore {
   private mistakes = 0;
@@ -53,7 +54,8 @@ export class ExercisesWithScore {
         return 5;
 
       case exercise instanceof EasySumUsingWords:
-        return 7;
+      case exercise instanceof EasyMultiplication:
+        return 6;
 
       default:
         return 0;
