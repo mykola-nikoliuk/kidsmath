@@ -1,6 +1,6 @@
-import { EasySub } from './EasySub';
-import { EasySum } from './EasySum';
 import { EasySumUsingWords } from './EasySumUsingWords';
 import { EasyMultiplication } from './EasyMultiplication';
+import { MediumSum } from '../medium/MediumSum';
+import { MediumSub } from '../medium/MediumSub';
 
-export const easyExercises = [EasySub, EasySum, EasySumUsingWords, EasyMultiplication];
+export const easyExercises = [MediumSum, MediumSub, EasySumUsingWords, EasyMultiplication];

@@ -6,6 +6,8 @@ import { EasySum } from './easy/EasySum';
 import { EasySub } from './easy/EasySub';
 import { EasySumUsingWords } from './easy/EasySumUsingWords';
 import { EasyMultiplication } from './easy/EasyMultiplication';
+import { MediumSub } from './medium/MediumSub';
+import { MediumSum } from './medium/MediumSum';
 
 export class ExercisesWithScore {
   private mistakes = 0;
@@ -55,6 +57,8 @@ export class ExercisesWithScore {
 
       case exercise instanceof EasySumUsingWords:
       case exercise instanceof EasyMultiplication:
+      case exercise instanceof MediumSub:
+      case exercise instanceof MediumSum:
         return 6;
 
       default:
