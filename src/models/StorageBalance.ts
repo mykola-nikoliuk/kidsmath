@@ -8,16 +8,16 @@ if (!fs.existsSync(balancePath)) {
   fs.mkdirSync(balancePath);
 }
 
-
 export class StorageBalance extends Balance {
   constructor(private userId: number) {
     super();
     this.readBalance();
   }
 
-  debit(value: number) {
-    super.debit(value);
+  debit(value: number): boolean {
+    const result = super.debit(value);
     this.writeBalance();
+    return result;
   }
 
   credit(value: number): boolean {

@@ -8,4 +8,6 @@ export const messages = {
   prize: '🏆 Приз:',
   exerciseButton: '📝 Завдання',
   balanceButton: '💶 Баланс',
+  adminAdded: 'Адмін успішно додоний',
+  adminRemoved: 'Адміна успішно видалено',
 };

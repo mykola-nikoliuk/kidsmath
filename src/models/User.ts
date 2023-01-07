@@ -3,6 +3,7 @@ import { easyExercises } from './exercises/easy';
 import { ExercisesWithScore } from './exercises/ExercisesWithScore';
 import { IBalance } from './Balance';
 import { StorageBalance } from './StorageBalance';
+import { DailyBalance } from './DailyBalance';
 import { messages } from '../messages';
 
 export interface IUser {
@@ -32,9 +33,10 @@ export class Users {
   }
 
   private createNewUser(userId: number) {
+    const storageBalance = new StorageBalance(userId);
     return new User(
       new ExercisesWithScore(new Exercises(easyExercises)),
-      new StorageBalance(userId),
+      new DailyBalance(storageBalance, userId),
     );
   }
 }
