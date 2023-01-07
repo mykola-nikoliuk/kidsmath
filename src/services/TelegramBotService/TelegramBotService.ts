@@ -24,7 +24,7 @@ export class TelegramBotService extends TelegramBotWrapper {
         const adminRequired = accessLevel === CommandAccessLevel.ADMIN;
         regex.lastIndex = -1;
 
-        const regexResult = regex.exec(text.toLowerCase());
+        const regexResult = regex.exec(text);
         if (regexResult) {
           if (adminRequired) {
             const { admins } = SettingsService.getSettings();

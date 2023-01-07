@@ -26,7 +26,7 @@ export function createExerciseCommands(state: Users): Command[] {
       CommandAccessLevel.ANY,
     ),
     createCommand(
-      /^credit\s(\d+)$/g,
+      /^credit\s(\d+)$/gi,
       async ({ regexResult, chatId, bot }) => {
         const user = state.getUserState(chatId);
         const credit = parseInt(regexResult[1]);

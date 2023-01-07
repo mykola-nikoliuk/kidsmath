@@ -2,10 +2,12 @@ import fs from 'fs';
 
 interface ISettings {
   admins: number[];
+  names: Record<number, string>;
 }
 
 const defaultSetting: ISettings = {
   admins: [],
+  names: {},
 }
 
 export class Settings {
@@ -14,7 +16,11 @@ export class Settings {
 
   constructor(private readonly path: string) {
     if (fs.existsSync(this.path)) {
-      this.settings = JSON.parse(fs.readFileSync(this.path, 'utf-8'));
+      const fileSettings: Partial<ISettings> = JSON.parse(fs.readFileSync(this.path, 'utf-8'));
+      this.settings = {
+        ...defaultSetting,
+        ...fileSettings,
+      };
     }
   }
 
@@ -37,6 +43,16 @@ export class Settings {
       admins.splice(index, 1);
       this.save();
     }
+  }
+
+  addName(userId: number, name: string) {
+    this.settings.names[userId] = name;
+    this.save();
+  }
+
+  removeName(userId: number) {
+    delete this.settings.names[userId];
+    this.save();
   }
 
   private save(): void {
