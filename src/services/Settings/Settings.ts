@@ -1,4 +1,5 @@
 import fs from 'fs';
+import path from 'path';
 
 interface ISettings {
   admins: number[];
@@ -61,5 +62,5 @@ export class Settings {
 
 }
 
-export const SettingsService = new Settings('settings.json');
+export const SettingsService = new Settings(path.join(__dirname, '../../../settings.json'));
 
