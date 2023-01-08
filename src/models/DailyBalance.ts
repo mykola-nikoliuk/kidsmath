@@ -22,7 +22,7 @@ export class DailyBalance implements IBalance {
   credit(value: number): boolean {
     const result = this.balance.credit(value);
     if (result) {
-      this.increment(value, 0);
+      this.increment(0, value);
     }
     return result;
   }
@@ -30,7 +30,7 @@ export class DailyBalance implements IBalance {
   debit(value: number): boolean {
     const result = this.balance.debit(value);
     if (result) {
-      this.increment(0, value);
+      this.increment(value, 0);
     }
     return result;
   }
