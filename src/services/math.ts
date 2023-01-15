@@ -7,5 +7,16 @@ export const NewMath = {
     let numString = num.toString();
     while (numString.length < size) numString = "0" + numString;
     return numString;
+  },
+  shuffle<T = any>(array: T[]): T[] {
+    const copy = array.slice(0);
+    const shuffled = [];
+
+    while (copy.length) {
+      const index = Math.floor(Math.random() * copy.length);
+      shuffled.push(...copy.splice(index, 1));
+    }
+
+    return shuffled;
   }
 }

@@ -3,6 +3,7 @@ import { createGeneralCommands } from '../commands/general';
 import { createEmptyAppState } from '../models/AppState';
 import { createExerciseCommands } from '../commands/exerceses';
 import { createAdminCommands } from '../commands/admin';
+import { createExerciseQueryActions } from '../queryActions/exercises';
 
 interface AppParams {
   telegramToken: string;
@@ -11,9 +12,11 @@ interface AppParams {
 export function createApp({ telegramToken }: AppParams): void {
   const state = createEmptyAppState();
 
-  const bot = new TelegramBotService(telegramToken, [
+  new TelegramBotService(telegramToken, [
     ...createGeneralCommands(state.users),
     ...createExerciseCommands(state.users),
     ...createAdminCommands(),
+  ], [
+    ...createExerciseQueryActions(state.users),
   ]);
 }

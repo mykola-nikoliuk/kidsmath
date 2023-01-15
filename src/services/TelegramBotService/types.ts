@@ -7,6 +7,7 @@ export enum TelegramEventTypes {
   DOCUMENT = 'document',
   ANIMATION = 'animation',
   MEDIA_GROUP = 'mediaGroup',
+  CALLBACK_QUERY = 'callback_query'
 }
 
 export type TelegramMessage = {

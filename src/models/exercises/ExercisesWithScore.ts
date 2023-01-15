@@ -29,6 +29,10 @@ export class ExercisesWithScore {
     return -1;
   }
 
+  getAvailableAnswers(): number[] {
+    return this.exercises.getAvailableAnswers();
+  }
+
   next() {
     this.exercises.next();
     this.mistakes = 0;
@@ -39,9 +43,8 @@ export class ExercisesWithScore {
 
     switch (this.mistakes) {
       case 0:
-      case 1:
         return exerciseScore;
-      case 2:
+      case 1:
         return Math.floor(exerciseScore / 2);
 
       default:

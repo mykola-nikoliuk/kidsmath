@@ -1,10 +1,10 @@
-import { IExercise, Newable } from '../types';
+import { IExerciseWithAnswers, Newable } from '../types';
 
-export class Exercises implements IExercise {
+export class Exercises implements IExerciseWithAnswers {
 
-  private exercise: IExercise = this.createExercise();
+  private exercise: IExerciseWithAnswers = this.createExercise();
 
-  constructor(private exerciseClasses: Newable<IExercise>[]) {}
+  constructor(private exerciseClasses: Newable<IExerciseWithAnswers>[]) {}
 
   getQuestion(): string {
     return this.exercise.getQuestion();
@@ -18,21 +18,25 @@ export class Exercises implements IExercise {
     this.exercise = this.createExercise();
   }
 
-  getExercise(): IExercise {
+  getExercise(): IExerciseWithAnswers {
     return this.exercise;
   }
 
-  // setExerciseClasses(newExerciseClasses: Newable<IExercise>[]) {
+  getAvailableAnswers(): number[] {
+    return this.exercise.getAvailableAnswers();
+  }
+
+  // setExerciseClasses(newExerciseClasses: Newable<IExerciseWithAnswers>[]) {
   //   this.exerciseClasses = newExerciseClasses;
   //   this.next();
   // }
 
-  private createExercise(): IExercise {
+  private createExercise(): IExerciseWithAnswers {
     const ExerciseClass = this.getRandomExerciseClass();
     return new ExerciseClass();
   }
 
-  private getRandomExerciseClass(): Newable<IExercise> {
+  private getRandomExerciseClass(): Newable<IExerciseWithAnswers> {
     const index = Math.floor(Math.random() * this.exerciseClasses.length);
     return this.exerciseClasses[index];
   }

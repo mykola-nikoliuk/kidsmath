@@ -1,8 +1,13 @@
-import { IExercise } from '../types';
+import { IExerciseWithAnswers } from '../types';
+import { AnswersGenerator } from '../../services/AnswersGenerator';
 
-export abstract class SubExercise implements IExercise {
+export abstract class SubExercise implements IExerciseWithAnswers {
 
-  protected constructor(private firstNumber: number, private secondNumber: number) {}
+  private readonly answers: number[];
+
+  protected constructor(protected firstNumber: number, protected secondNumber: number) {
+    this.answers = AnswersGenerator.generate(this.getAnswer(), 4);
+  }
 
   getQuestion(): string {
     return `${this.firstNumber} - ${this.secondNumber} = ?`;
@@ -10,6 +15,10 @@ export abstract class SubExercise implements IExercise {
 
   tryAnswer(answer: number): boolean {
     return answer === this.getAnswer();
+  }
+
+  getAvailableAnswers(): number[] {
+    return this.answers.slice(0);
   }
 
   protected getAnswer(): number {

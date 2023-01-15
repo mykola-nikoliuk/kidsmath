@@ -2,6 +2,7 @@ import { IBalance } from './Balance';
 import path from 'path';
 import fs from 'fs';
 import { NewMath } from '../services/math';
+import { Currency } from '../services/Currency';
 
 interface IDailyBalance {
   debit: number;
@@ -37,6 +38,12 @@ export class DailyBalance implements IBalance {
 
   getBalance(): string {
     return this.balance.getBalance();
+  }
+
+  getDailyBalance(): string {
+    const summaries = DailyBalance.readSummaries();
+    const { debit, credit } = summaries[this.userId] || { debit: 0, credit: 0 };
+    return Currency.toPrice(debit - credit);
   }
 
   private increment(debit: number, credit: number): void {

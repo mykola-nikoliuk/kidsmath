@@ -13,11 +13,28 @@ export interface IUser {
 }
 
 export class User implements IUser {
-  constructor(public exercises: ExercisesWithScore, public balance: IBalance) {
+  constructor(public exercises: ExercisesWithScore, public balance: DailyBalance) {
   }
 
   getDashboard(): string {
-    return `${messages.balance}: ${this.balance.getBalance()}\n${this.exercises.getView()}`;
+    return [
+      `${messages.balance} ${this.balance.getBalance()}\n`,
+      `${messages.dailyBalance} ${this.balance.getDailyBalance()}\n`,
+      `${this.exercises.getView()}`,
+    ].join('');
+  }
+
+  tryAnswer(answer: number) {
+    const score = this.exercises.tryAnswer(answer);
+    const isAnswerCorrect = score >= 0;
+    const result = isAnswerCorrect ? messages.correct : messages.incorrect;
+
+    if (isAnswerCorrect) {
+      this.exercises.next();
+      this.balance.debit(score);
+    }
+
+    return `${result}\n\n${this.getDashboard()}`;
   }
 }
 

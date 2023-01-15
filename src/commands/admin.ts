@@ -47,7 +47,7 @@ export function createAdminCommands(): Command[] {
       CommandAccessLevel.ADMIN,
     ),
     createCommand(
-      /^daily$/g,
+      /^daily$/ig,
       async ({ chatId, bot }) => {
         const summaries = DailyBalance.readSummaries();
         let response = '';
@@ -56,7 +56,9 @@ export function createAdminCommands(): Command[] {
           response += `📥 debit: ${Currency.toPrice(summaries[userId].debit)}\n`;
           response += `📤 credit: ${Currency.toPrice(summaries[userId].credit)}\n\n`;
         });
-        await bot.sendMessage(chatId, response);
+        if (response) {
+          await bot.sendMessage(chatId, response);
+        }
       },
       CommandAccessLevel.ADMIN,
     ),

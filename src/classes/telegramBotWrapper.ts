@@ -20,7 +20,7 @@ export class TelegramBotWrapper {
         resize_keyboard: true,
         keyboard: buttons,
       },
-      ...options
+      ...options,
     };
     return this.sendMessage(id, text, opts);
   }
@@ -45,17 +45,18 @@ export class TelegramBotWrapper {
     return this._bot._formatSendData('animation', ...params);
   }
 
-  sendMessage(id: number, text: string, options = {}, buttons = [], message_id = null) {
+  sendMessage(id: number, text: string, options = {},
+    buttons: ({ text: string; callback_data: string })[][] = [], message_id = null) {
     if (this._bot) {
       const opts = {
         ...this.createButtonsOptions(buttons),
-        ...options
+        ...options,
       };
 
       if (message_id) {
         return this._bot.editMessageText(text, Object.assign(opts, {
           chat_id: id,
-          message_id
+          message_id,
         }));
       } else {
         return this._bot.sendMessage(id, text, opts);

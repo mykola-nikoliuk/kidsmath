@@ -10,17 +10,7 @@ export function createExerciseCommands(state: Users): Command[] {
       async ({ chatId, message, bot }) => {
         const user = state.getUserState(chatId);
         const answer = parseInt(message.text || '');
-        const score = user.exercises.tryAnswer(answer);
-        const isAnswerCorrect = score >= 0;
-        const result = isAnswerCorrect ? messages.correct : messages.incorrect;
-
-        if (isAnswerCorrect) {
-          user.exercises.next();
-          user.balance.debit(score);
-        }
-
-        const response = `${result}\n\n${user.getDashboard()}`;
-
+        const response = user.tryAnswer(answer);
         await bot.sendMessage(chatId, response);
       },
       CommandAccessLevel.ANY,

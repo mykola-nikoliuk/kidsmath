@@ -6,3 +6,7 @@ export interface IExercise {
   getQuestion(): string;
   tryAnswer(answer: number): boolean;
 }
+
+export interface IExerciseWithAnswers extends IExercise {
+  getAvailableAnswers(): number[];
+}

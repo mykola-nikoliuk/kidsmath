@@ -5,6 +5,7 @@ export const messages = {
   creditSuccessful: 'Гроші успішно списано',
   lowBalance: 'Не достаньо грошей',
   balance: '💶 Баланс:',
+  dailyBalance: '🤑 Рух:',
   prize: '🏆 Приз:',
   exerciseButton: '📝 Завдання',
   balanceButton: '💶 Баланс',
