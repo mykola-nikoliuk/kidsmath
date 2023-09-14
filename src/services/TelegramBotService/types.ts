@@ -52,6 +52,13 @@ export type TelegramEvent = {
   document?: { file_id: number },
 }
 
+export interface TelegramInlineButton {
+  text: string;
+  callback_data: string
+}
+
+export type TelegramInlineButtons = TelegramInlineButton[][]
+
 export type CommandHandler = (params: { regexResult: RegExpExecArray, chatId: number, message: TelegramMessage, bot: TelegramBotWrapper }) => void;
 
 export enum CommandAccessLevel {

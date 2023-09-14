@@ -1,13 +1,15 @@
 import { Exercises } from './Exercises';
 import { Currency } from '../../services/Currency';
 import { messages } from '../../messages';
-import { IExercise } from '../types';
+import { IExercise, IExerciseWithAnswers } from '../types';
 import { EasySum } from './easy/EasySum';
 import { EasySub } from './easy/EasySub';
 import { EasySumUsingWords } from './easy/EasySumUsingWords';
 import { EasyMultiplication } from './easy/EasyMultiplication';
 import { MediumSub } from './medium/MediumSub';
 import { MediumSum } from './medium/MediumSum';
+import { EasyDirection } from './easy/EasyDirection';
+import { EasySequence } from './easy/EasySequence';
 
 export class ExercisesWithScore {
   private mistakes = 0;
@@ -19,7 +21,7 @@ export class ExercisesWithScore {
     return `${messages.prize} ${Currency.toPrice(this.getScore())}\n\n${this.exercises.getQuestion()}`;
   }
 
-  tryAnswer(answer: number): number {
+  tryAnswer(answer: string): number {
     if (this.exercises.tryAnswer(answer)) {
       return this.getScore();
     }
@@ -29,7 +31,7 @@ export class ExercisesWithScore {
     return -1;
   }
 
-  getAvailableAnswers(): number[] {
+  getAvailableAnswers(): ReturnType<IExerciseWithAnswers['getAvailableAnswers']> {
     return this.exercises.getAvailableAnswers();
   }
 
@@ -56,12 +58,14 @@ export class ExercisesWithScore {
     switch (true) {
       case exercise instanceof EasySum:
       case exercise instanceof EasySub:
+      case exercise instanceof EasyDirection:
         return 5;
 
       case exercise instanceof EasySumUsingWords:
       case exercise instanceof EasyMultiplication:
       case exercise instanceof MediumSub:
       case exercise instanceof MediumSum:
+      case exercise instanceof EasySequence:
         return 6;
 
       default:

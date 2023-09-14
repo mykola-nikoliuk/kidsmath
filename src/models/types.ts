@@ -4,9 +4,9 @@ export interface Newable<T = any> {
 
 export interface IExercise {
   getQuestion(): string;
-  tryAnswer(answer: number): boolean;
+  tryAnswer(answer: string): boolean;
 }
 
 export interface IExerciseWithAnswers extends IExercise {
-  getAvailableAnswers(): number[];
+  getAvailableAnswers(): number[] | string[];
 }

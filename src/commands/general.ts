@@ -3,6 +3,7 @@ import { messages } from "../messages";
 import { Command, CommandAccessLevel } from '../services/TelegramBotService';
 import { Users } from '../models/User';
 import { exerciseQueryAction } from '../queryActions/exercises';
+import { getAnswersButtons } from '../services/TelegramBotService/getAnswersButtons';
 
 export function createGeneralCommands(state: Users): Command[] {
   return [
@@ -17,9 +18,7 @@ export function createGeneralCommands(state: Users): Command[] {
       new RegExp(messages.exerciseButton, 'i'),
       async ({ chatId, bot }) => {
         const user = state.getUserState(chatId);
-        const buttons = [user.exercises.getAvailableAnswers()
-          .map(v => ({ text: v.toString(), callback_data: `${exerciseQueryAction.name}:${v}` }))
-        ];
+        const buttons = getAnswersButtons(user.exercises.getAvailableAnswers());
         await bot.sendMessage(chatId, user.getDashboard(), {}, buttons);
       },
       CommandAccessLevel.ANY,

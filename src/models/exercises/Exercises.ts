@@ -10,8 +10,8 @@ export class Exercises implements IExerciseWithAnswers {
     return this.exercise.getQuestion();
   }
 
-  tryAnswer(answer: number): boolean {
-    return this.exercise.tryAnswer(answer);
+  tryAnswer(...args: Parameters<IExerciseWithAnswers['tryAnswer']>): boolean {
+    return this.exercise.tryAnswer(...args);
   }
 
   next() {
@@ -22,7 +22,7 @@ export class Exercises implements IExerciseWithAnswers {
     return this.exercise;
   }
 
-  getAvailableAnswers(): number[] {
+  getAvailableAnswers(): ReturnType<IExerciseWithAnswers['getAvailableAnswers']> {
     return this.exercise.getAvailableAnswers();
   }
 

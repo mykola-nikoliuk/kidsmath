@@ -24,7 +24,7 @@ export class User implements IUser {
     ].join('');
   }
 
-  tryAnswer(answer: number) {
+  tryAnswer(answer: string) {
     const score = this.exercises.tryAnswer(answer);
     const isAnswerCorrect = score >= 0;
     const result = isAnswerCorrect ? messages.correct : messages.incorrect;

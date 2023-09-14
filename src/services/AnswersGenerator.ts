@@ -5,9 +5,13 @@ export class AnswersGenerator {
     const wrongAnswers = [];
 
     wrongAnswers.push(answer + 1);
+    wrongAnswers.push(answer - 1);
     wrongAnswers.push(answer + 10);
     wrongAnswers.push(answer - 10);
-    wrongAnswers.push(answer - 1);
+    wrongAnswers.push(answer + 2);
+    wrongAnswers.push(answer - 2);
+    wrongAnswers.push(answer + 3);
+    wrongAnswers.push(answer - 3);
 
     const sign = answer / Math.abs(answer);
     const mirrored = sign * parseInt(Math.abs(answer).toString(10).split('').reverse().join(''))

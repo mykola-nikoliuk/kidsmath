@@ -1,3 +1,5 @@
+import { TelegramInlineButtons } from '../services/TelegramBotService';
+
 const TelegramBot = require('node-telegram-bot-api');
 
 export class TelegramBotWrapper {
@@ -46,7 +48,7 @@ export class TelegramBotWrapper {
   }
 
   sendMessage(id: number, text: string, options = {},
-    buttons: ({ text: string; callback_data: string })[][] = [], message_id = null) {
+    buttons: TelegramInlineButtons = [], message_id = null) {
     if (this._bot) {
       const opts = {
         ...this.createButtonsOptions(buttons),

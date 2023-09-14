@@ -13,8 +13,8 @@ export abstract class SubExercise implements IExerciseWithAnswers {
     return `${this.firstNumber} - ${this.secondNumber} = ?`;
   }
 
-  tryAnswer(answer: number): boolean {
-    return answer === this.getAnswer();
+  tryAnswer(answer: string): boolean {
+    return parseInt(answer) === this.getAnswer();
   }
 
   getAvailableAnswers(): number[] {

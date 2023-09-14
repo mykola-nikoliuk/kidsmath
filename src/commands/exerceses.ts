@@ -9,7 +9,7 @@ export function createExerciseCommands(state: Users): Command[] {
       /^\d+$/g,
       async ({ chatId, message, bot }) => {
         const user = state.getUserState(chatId);
-        const answer = parseInt(message.text || '');
+        const answer = message.text || '';
         const response = user.tryAnswer(answer);
         await bot.sendMessage(chatId, response);
       },
