@@ -1,24 +1,27 @@
 import { QueryAction, QueryActionHandler } from '../services/TelegramBotService/QueryAction';
-import { Users } from '../models/User';
 import { getAnswersButtons } from '../services/TelegramBotService/getAnswersButtons';
+import { KidsMathService } from '../services/KidsMathService';
 
 export const exerciseQueryAction = new QueryAction('exercise');
 
-export function createExerciseQueryActions(state: Users): QueryActionHandler[] {
+export function createExerciseQueryActions(kidsMathService: KidsMathService): QueryActionHandler[] {
   return [
     {
       queryAction: exerciseQueryAction,
       handler: async ({ queryAction, chatId, messageId, bot }) => {
-        const [answerString] = queryAction.params;
-        const answer = answerString;
-        const user = state.getUserState(chatId);
-        const response = user.tryAnswer(answer);
-        if (messageId) {
-          bot.deleteMessage(chatId, messageId);
+        try {
+          const [answer] = queryAction.params;
+          console.log(queryAction.params);
+          if (messageId) {
+            bot.deleteMessage(chatId, messageId);
+          }
+          const { dashboard, answers } = await kidsMathService.tryAnswer(chatId, answer);
+          const buttons = getAnswersButtons(answers);
+          await bot.sendMessage(chatId, dashboard, {}, buttons);
         }
+        catch (err) {
 
-        const buttons = getAnswersButtons(user.exercises.getAvailableAnswers());
-        await bot.sendMessage(chatId, response, {}, buttons);
+        }
       }
     },
   ]
